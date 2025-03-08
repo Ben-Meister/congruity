@@ -208,13 +208,13 @@ class MHManager():
         data = json.dumps({'email': email, 'password': password}).encode('utf-8')
         headers = {'Content-Type': 'application/json'}
         request = urllib.request.Request(url, data, headers)
-        response = urllib.request.urlopen(request,context=SSLContext)
+        response = urllib.request.urlopen(request, context=SSLContext)
         # For some reason the response to this is double-encoded
         jsonResponse = json.loads(json.loads(response.read().decode('utf-8')))
         if jsonResponse == 401:
             url = baseUrl + '/martiniweb/Home/TestMWLoginUser'
             request = urllib.request.Request(url, data, headers)
-            response = urllib.request.urlopen(request,context=SSLContext)
+            response = urllib.request.urlopen(request, context=SSLContext)
             jsonResponse = json.loads(response.read().decode('utf-8'))
             if jsonResponse["Result"]: # members.harmonyremote.com acct
                 return None
@@ -226,7 +226,7 @@ class MHManager():
                            'access_token': jsonResponse['access_token']}).encode('utf-8')
         headers = {'Content-Type': 'application/json'}
         request = urllib.request.Request(url, data, headers)
-        response = urllib.request.urlopen(request,context=SSLContext)
+        response = urllib.request.urlopen(request, context=SSLContext)
         jsonResponse = json.loads(response.read().decode('utf-8'))
         self.client.options.transport.cookiejar.extract_cookies(response,
                                                                 request)
@@ -421,7 +421,7 @@ class MHManager():
                                                  {"Content-Type": "text/xml"})
             self.client.options.transport.cookiejar.add_cookie_header(
                 httpRequest)
-            fp = urllib.request.urlopen(httpRequest,context=SSLContext)
+            fp = urllib.request.urlopen(httpRequest, context=SSLContext)
             rawfile = fp.read()
             response = rawfile.decode('ascii', 'ignore')
             status = re.search(
@@ -533,7 +533,7 @@ class MHManager():
              'IsPolicyAccepted': 'true',
              'Keepmeinformed': details.keepMeInformed})
         headers = {"Content-type": "application/x-www-form-urlencoded"}
-        conn = http_client.HTTPSConnection(host,context=SSLContext)
+        conn = http_client.HTTPSConnection(host, context=SSLContext)
         conn.request("POST", url, params, headers)
         response = conn.getresponse()
         data = response.read().decode('utf-8')
@@ -602,7 +602,7 @@ class MHManager():
         return True
 
     def GetCountryLists(self):
-        conn = http_client.HTTPSConnection("setup.myharmony.com",context=SSLContext)
+        conn = http_client.HTTPSConnection("setup.myharmony.com", context=SSLContext)
         conn.request("GET",
                      "https://setup.myharmony.com/MartiniWeb/Account/Register")
         response = conn.getresponse()
